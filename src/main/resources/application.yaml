@@ -6,7 +6,7 @@ spring:
     name: contact-service
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/contact_service_db
+    url: jdbc:postgresql://ep-lingering-wind-a1avid0n-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 

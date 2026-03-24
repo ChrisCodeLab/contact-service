@@ -13,8 +13,13 @@ public class CorsConfig {
 	
 	@Bean
 	public CorsFilter corsFilter() {
+		
 		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(List.of("*"));
+		config.setAllowedOrigins(List.of(
+				"https://chriscodelab.com",
+				"https://frontend-7un.pages.dev",
+			    "http://localhost:5173"
+			));
 		config.setAllowedHeaders(List.of("*"));
 		config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
 		config.setAllowCredentials(false);

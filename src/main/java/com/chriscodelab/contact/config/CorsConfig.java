@@ -17,7 +17,7 @@ public class CorsConfig {
 		CorsConfiguration config = new CorsConfiguration();
 		config.setAllowedOrigins(List.of(
 				"https://chriscodelab.com",
-				"https://frontend-7un.pages.dev",
+				"https://chriscodelab-site.pages.dev",
 			    "http://localhost:5173"
 			));
 		config.setAllowedHeaders(List.of("*"));

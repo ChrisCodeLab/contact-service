@@ -2,6 +2,7 @@ package com.chriscodelab.contact.api.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,11 @@ public class ContactController {
 		ContactResponseDTO response = contactService.submitContact(request);
 		ApiResponse<ContactResponseDTO> apiResponse = new ApiResponse<>(true, "Contact Submission Successful", response);
 		return ResponseEntity.status(HttpStatus.CREATED).body(apiResponse);
+	}
+	
+	@GetMapping("/health")
+	public String healthCheck() {
+		return "OK";
 	}
 
 }

@@ -51,10 +51,10 @@ public class EmailServiceImpl implements EmailService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
         message.setTo(ownerEmail);
-        message.setSubject("New contact message from " + request.getName());
+        message.setSubject("chriscodelab: New contact message from " + request.getName());
         message.setText("You have received a message from " + request.getName() + " <" + request.getEmail() + ">.\n\n"
-                + "Message:\n" + request.getMessage() + "\n\n"
-                + "Please review it in the contact service database.");
+                + "Message:\n" + request.getMessage() + "\n\n\n"
+                + "This is an automated notification from your contact-service.");
 
         mailSender.send(message);
     }

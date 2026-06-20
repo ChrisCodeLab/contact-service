@@ -20,8 +20,8 @@ brevo:
   api:
     key: ${BREVO_API_KEY}
     url: https://api.brevo.com/v3/smtp/email
-    sender-email: ${BREVO_SENDER_EMAIL:chriscodelab@gmail.com}
-    sender-name: ${BREVO_SENDER_NAME:Christopher M}
-  owner-email: ${BREVO_OWNER_EMAIL:${BREVO_SENDER_EMAIL:chriscodelab@gmail.com}}
+    sender-email: ${BREVO_SENDER_EMAIL}
+    sender-name: ${BREVO_SENDER_NAME}
+  owner-email: ${BREVO_OWNER_EMAIL}
   debug: ${BREVO_DEBUG:false}
 ## Owner (recipient) is dynamic per submission and comes from the submitter's email; no default configured here.

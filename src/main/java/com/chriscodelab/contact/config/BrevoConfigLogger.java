@@ -16,6 +16,7 @@ public class BrevoConfigLogger {
     private final String apiUrl;
     private final String senderEmail;
     private final String senderName;
+    private final String ownerEmail;
     private final boolean debug;
 
     public BrevoConfigLogger(
@@ -23,11 +24,13 @@ public class BrevoConfigLogger {
             @Value("${brevo.api.url:}") String apiUrl,
             @Value("${brevo.api.sender-email:}") String senderEmail,
             @Value("${brevo.api.sender-name:}") String senderName,
+            @Value("${brevo.owner-email:}") String ownerEmail,
             @Value("${brevo.debug:false}") boolean debug) {
         this.apiKey = apiKey;
         this.apiUrl = apiUrl;
         this.senderEmail = senderEmail;
         this.senderName = senderName;
+        this.ownerEmail = ownerEmail;
         this.debug = debug;
     }
 
@@ -37,12 +40,19 @@ public class BrevoConfigLogger {
             LOGGER.warn("Brevo API key is NOT set (BREVO_API_KEY).");
         } else {
             LOGGER.info("Brevo API key present: {}", maskApiKey(apiKey));
+            if (apiKey.startsWith("xsmt")) {
+                LOGGER.warn("Brevo API key appears to be an SMTP key (starts with 'xsmt'). The HTTP REST API may require a different API key. If you see 401 responses, use a Brevo REST API key instead of an SMTP key.");
+            }
         }
 
         LOGGER.info("Brevo API URL: {}", apiUrl == null || apiUrl.isBlank() ? "(not set)" : apiUrl);
         LOGGER.info("Brevo sender: {} <{}>", senderName == null || senderName.isBlank() ? "(not set)" : senderName,
             senderEmail == null || senderEmail.isBlank() ? "(not set)" : senderEmail);
-        LOGGER.info("Brevo owner recipient: (dynamic per submission - uses submitter's email)");
+        if (ownerEmail == null || ownerEmail.isBlank()) {
+            LOGGER.info("Brevo owner recipient: (not configured - using submitter's email for owner notifications)");
+        } else {
+            LOGGER.info("Brevo owner recipient: {}", ownerEmail);
+        }
         LOGGER.info("Brevo debug mode: {}", debug);
     }
 

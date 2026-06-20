@@ -19,22 +19,33 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender mailSender;
     private final String fromEmail;
     private final String ownerEmail;
+    private final String mailHost;
+    private final int mailPort;
+    private final boolean mailDebug;
 
     public EmailServiceImpl(JavaMailSender mailSender,
             @Value("${spring.mail.username}") String fromEmail,
-            @Value("${contact.owner.email}") String ownerEmail) {
+            @Value("${contact.owner.email}") String ownerEmail,
+            @Value("${spring.mail.host}") String mailHost,
+            @Value("${spring.mail.port}") int mailPort,
+            @Value("${spring.mail.properties.mail.debug:false}") boolean mailDebug) {
         this.mailSender = mailSender;
         this.fromEmail = fromEmail;
         this.ownerEmail = ownerEmail;
+        this.mailHost = mailHost;
+        this.mailPort = mailPort;
+        this.mailDebug = mailDebug;
     }
 
     @Override
     public void sendContactEmails(ContactRequestDTO request) {
+        LOGGER.info("Sending contact emails: user={}, owner={}, mailHost={}, mailPort={}, mailDebug={}", request.getEmail(), ownerEmail, mailHost, mailPort, mailDebug);
         sendConfirmationEmail(request);
         sendOwnerNotificationEmail(request);
     }
 
     private void sendConfirmationEmail(ContactRequestDTO request) {
+        LOGGER.debug("Preparing confirmation email to {}", request.getEmail());
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
         message.setTo(request.getEmail());

@@ -16,25 +16,11 @@ spring:
     properties:
       hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-  mail:
-    host: smtp.gmail.com
-    port: 465
-    username: ${MAIL_USERNAME}
-    password: ${MAIL_PASSWORD}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          ssl:
-            enable: true
-          starttls:
-            enable: false
-          trust: smtp.gmail.com
-          connectiontimeout: 10000
-          timeout: 10000
-          writetimeout: 10000
-        debug: ${MAIL_DEBUG:false}
-    default-encoding: UTF-8
-contact:
-  owner:
-    email: ${MAIL_USERNAME}
+  brevo:
+    api:
+      key: ${BREVO_API_KEY}
+      url: https://api.brevo.com/v3/smtp/email
+      sender-email: ${BREVO_SENDER_EMAIL}
+      sender-name: ${BREVO_SENDER_NAME}
+    debug: ${BREVO_DEBUG}
+## Owner (recipient) is dynamic per submission and comes from the submitter's email; no default configured here.

@@ -57,8 +57,11 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendContactEmails(ContactRequestDTO request) {
         LOGGER.info("Sending Brevo emails: user={}, apiUrl={}, debug={}", request.getEmail(), apiUrl, debug);
-        if (debug) {
-            LOGGER.info("Brevo sender configured as {} <{}>", senderName, senderEmail);
+        LOGGER.info("Brevo sender configured as {} <{}>", senderName, senderEmail);
+        if (ownerEmail == null || ownerEmail.isBlank()) {
+            LOGGER.warn("Brevo owner email is not configured. Owner notifications will be sent to the submitter email.");
+        } else {
+            LOGGER.info("Brevo owner notifications will be sent to {}", ownerEmail);
         }
         sendConfirmationEmail(request);
         sendOwnerNotificationEmail(request);
